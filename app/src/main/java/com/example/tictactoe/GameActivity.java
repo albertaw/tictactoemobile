@@ -8,21 +8,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-
 public class GameActivity extends AppCompatActivity {
     private Game game = new Game();
     TextView message;
-    TextView xScoreSet1;
-    TextView oScoreSet1;
+    TextView xScore;
+    TextView oScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         message = findViewById(R.id.message);
-        xScoreSet1 = findViewById(R.id.x_score_set1);
-        oScoreSet1 = findViewById(R.id.o_score_set1);
+        xScore = findViewById(R.id.x_score);
+        oScore = findViewById(R.id.o_score);
     }
 
     public void squareClickListener(View view) {
@@ -32,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
         game.updatePlayerState(game.turn, state);
         game.numMovesLeft -= 1;
         game.checkForWin();
+        updateScore(game);
         displayMessage(game.message);
         game.toggleTurn();
     }
@@ -57,11 +56,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void updateScore(Game game) {
-        int xScore = game.playerX.get("score");
-        xScoreSet1.setText(xScore);
+        int playerXScore = game.playerX.get("score");
+        xScore.setText("" + playerXScore);
 
-        int oScore = game.playerO.get("score");
-        oScoreSet1.setText(oScore);
+        int playerOScore = game.playerO.get("score");
+        oScore.setText("" + playerOScore);
     }
 
     public void resetClickListener(View view) {
@@ -84,6 +83,10 @@ public class GameActivity extends AppCompatActivity {
             button.setText("");
             button.setEnabled(true);
         }
+    }
+
+    public void disableBoard() {
+
     }
 
 }
