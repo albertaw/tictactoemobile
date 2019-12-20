@@ -1,6 +1,5 @@
 package com.example.tictactoe;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import java.util.HashMap;
 
 public class GameActivity extends AppCompatActivity {
-    private String turn = "x";
+    private Game game = new Game();
     TextView message;
 
     @Override
@@ -23,35 +22,35 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void squareClickListener(View view) {
-        int id = view.getId();
-        Button button = (Button)view;
 
-        //update the text to the current player's turn
-        button.setText(turn);
+        updateSquare(view);
+        game.toggleTurn();
 
-        //disable button from being clicked again
-        button.setEnabled(false);
-        button.setTextColor(Color.DKGRAY);
-        //check if the player has won
+        int state = getSquareState(view);
+        game.updatePlayerState(game.turn, state);
+        game.numMovesLeft -= 1;
 
-        //if the player has won
-        // update their score, set message
-        //otherwise
-        //toggle whose turn it is, set message
-        toggleTurn();
-        displayMessage(turn.toUpperCase() + " turn");
-        //decrement the number of moves
+        displayMessage("" + state);
+
     }
 
-    private void toggleTurn() {
-        if(turn == "x") {
-            turn = "o";
-        } else {
-            turn = "x";
-        }
-    }
 
     private void displayMessage(String text) {
         message.setText(text);
+    }
+
+    public void updateSquare(View view) {
+        Button button = (Button)view;
+        button.setText(game.turn);
+        button.setEnabled(false);
+        button.setTextColor(Color.DKGRAY);
+    }
+
+    public int getSquareState(View view) {
+        int id = view.getId();
+        String idString = getResources().getResourceEntryName(id);
+        int exponent = Character.getNumericValue(idString.charAt(idString.length() - 1));
+        int state = (int)Math.pow(2, exponent);
+        return state;
     }
 }
