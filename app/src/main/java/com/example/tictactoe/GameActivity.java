@@ -67,8 +67,13 @@ public class GameActivity extends AppCompatActivity {
     public void resetClickListener(View view) {
         //cleanup player states and scores
         //cleanup scores
-        //cleanup message
+        cleanupMessage();
         cleanupBoard();
+    }
+
+    public void cleanupMessage() {
+        game.message = "";
+        displayMessage(game.message);
     }
 
     public void cleanupBoard() {
