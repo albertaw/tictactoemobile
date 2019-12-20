@@ -29,7 +29,9 @@ public class GameActivity extends AppCompatActivity {
         int state = getSquareState(view);
         game.updatePlayerState(game.turn, state);
         game.numMovesLeft -= 1;
-        game.checkForWin();
+
+        game.checkForWin(this);
+
         updateScore(game);
         displayMessage(game.message);
         game.toggleTurn();
@@ -64,8 +66,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void resetClickListener(View view) {
-        //cleanup player states and scores
-        //cleanup scores
+        //cleanup player states
+        //cleanup scores?
+        game.playerX.put("state", 0);
+        game.playerO.put("state", 0);
         cleanupMessage();
         cleanupBoard();
     }
@@ -86,7 +90,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void disableBoard() {
-
+        for (int i = 0; i < 9; i++) {
+            String squareId = "square_" + i;
+            int id = getResources().getIdentifier(squareId, "id", "com.example.tictactoe");
+            Button button = findViewById(id);
+            button.setEnabled(false);
+        }
     }
 
 }

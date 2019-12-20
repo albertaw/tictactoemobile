@@ -70,26 +70,24 @@ public class Game {
         player.put("state", state + stateToAdd);
     }
 
-    public void checkForWin() {
+    public void checkForWin(GameActivity gameActivity) {
         boolean playerXHasWon = isWin(playerX.get("state"));
         boolean playerOHasWon = isWin(playerO.get("state"));
 
         if(playerXHasWon) {
-            //increment x score
             int score = playerX.get("score");
             playerX.put("score", score + 1);
-            //change message to x wins
             message = "X wins";
+            gameActivity.disableBoard();
         } else if (playerOHasWon) {
-            //increment o score
             int score = playerO.get("score");
             playerO.put("score", score + 1);
-            //change message to o wins
             message = "O wins";
+            gameActivity.disableBoard();
         } else if (numMovesLeft == 0) {
-            //disable rest of board
-            //change message to tie
             message = "Tie";
         }
     }
+
+
 }
