@@ -13,12 +13,16 @@ import java.util.HashMap;
 public class GameActivity extends AppCompatActivity {
     private Game game = new Game();
     TextView message;
+    TextView xScoreSet1;
+    TextView oScoreSet1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         message = findViewById(R.id.message);
+        xScoreSet1 = findViewById(R.id.x_score_set1);
+        oScoreSet1 = findViewById(R.id.o_score_set1);
     }
 
     public void squareClickListener(View view) {
@@ -27,7 +31,6 @@ public class GameActivity extends AppCompatActivity {
         int state = getSquareState(view);
         game.updatePlayerState(game.turn, state);
         game.numMovesLeft -= 1;
-
         game.checkForWin();
         displayMessage(game.message);
         game.toggleTurn();
@@ -52,4 +55,30 @@ public class GameActivity extends AppCompatActivity {
         int state = (int)Math.pow(2, exponent);
         return state;
     }
+
+    public void updateScore(Game game) {
+        int xScore = game.playerX.get("score");
+        xScoreSet1.setText(xScore);
+
+        int oScore = game.playerO.get("score");
+        oScoreSet1.setText(oScore);
+    }
+
+    public void resetClickListener(View view) {
+        //cleanup player states and scores
+        //cleanup scores
+        //cleanup message
+        cleanupBoard();
+    }
+
+    public void cleanupBoard() {
+        for (int i = 0; i < 9; i++) {
+            String squareId = "square_" + i;
+            int id = getResources().getIdentifier(squareId, "id", "com.example.tictactoe");
+            Button button = findViewById(id);
+            button.setText("");
+            button.setEnabled(true);
+        }
+    }
+
 }

@@ -23,6 +23,7 @@
             android:textSize="36sp" />
 
         <TextView
+            android:id="@+id/x_score_set1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"
@@ -59,6 +60,7 @@
             android:textSize="36sp" />
 
         <TextView
+            android:id="@+id/o_score_set1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"
@@ -204,5 +206,6 @@
         android:text="Reset"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:onClick="resetClickListener"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
