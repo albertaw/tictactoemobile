@@ -42,7 +42,6 @@ public class Game {
         } else {
             turn = "x";
         }
-        message = turn + " turn";
     }
 
 

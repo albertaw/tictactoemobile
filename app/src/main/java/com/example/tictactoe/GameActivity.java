@@ -24,14 +24,13 @@ public class GameActivity extends AppCompatActivity {
     public void squareClickListener(View view) {
 
         updateSquare(view);
-        game.toggleTurn();
-
         int state = getSquareState(view);
         game.updatePlayerState(game.turn, state);
         game.numMovesLeft -= 1;
 
-        displayMessage("" + state);
-
+        game.checkForWin();
+        displayMessage(game.message);
+        game.toggleTurn();
     }
 
 
