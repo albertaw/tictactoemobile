@@ -19,7 +19,9 @@
         <activity
             android:name=".GameActivity"
             android:label="Game"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
