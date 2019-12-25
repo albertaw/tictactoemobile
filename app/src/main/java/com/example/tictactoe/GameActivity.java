@@ -1,6 +1,8 @@
 package com.example.tictactoe;
 
+import android.app.Activity;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
     private Game game = new Game();
-    TextView message;
-    TextView xScore;
-    TextView oScore;
+    private TextView message;
+    private TextView xScore;
+    private TextView oScore;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +24,12 @@ public class GameActivity extends AppCompatActivity {
         message = findViewById(R.id.message);
         xScore = findViewById(R.id.x_score);
         oScore = findViewById(R.id.o_score);
+        mp = MediaPlayer.create(GameActivity.this, R.raw.square_selected);
     }
 
     public void squareClickListener(View view) {
 
+        playSound();
         updateSquare(view);
         int state = getSquareState(view);
         game.updatePlayerState(game.turn, state);
@@ -37,6 +42,10 @@ public class GameActivity extends AppCompatActivity {
         game.toggleTurn();
     }
 
+    private void playSound() {
+        mp.start();
+    }
+
 
     private void displayMessage(String text) {
         message.setText(text);
@@ -46,7 +55,7 @@ public class GameActivity extends AppCompatActivity {
         Button button = (Button)view;
         button.setText(game.turn);
         button.setEnabled(false);
-        button.setTextColor(Color.DKGRAY);
+        button.setTextColor(Color.WHITE);
     }
 
     public int getSquareState(View view) {
@@ -70,6 +79,7 @@ public class GameActivity extends AppCompatActivity {
         //cleanup scores?
         game.playerX.put("state", 0);
         game.playerO.put("state", 0);
+        game.numMovesLeft = 9;
         cleanupMessage();
         cleanupBoard();
     }

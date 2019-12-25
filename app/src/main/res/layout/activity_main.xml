@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffde03"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
 
     <TextView
@@ -31,9 +31,9 @@
         android:text="Start"
         android:textSize="24sp"
         android:textColor="@android:color/white"
-        android:background="@android:color/black"
+        android:background="@color/colorAccent"
         app:layout_constraintTop_toBottomOf="@id/title_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:onClick="start"/>
+        android:onClick="start" />
 </androidx.constraintlayout.widget.ConstraintLayout>
