@@ -22,15 +22,9 @@ public class Game {
 
     public String message = "";
 
-    public Map<String, Integer> playerX = new HashMap<String, Integer>() {{
-        put("state", 0);
-        put("score", 0);
-    }};
+    public Player playerX = new Player();
 
-    public Map<String, Integer> playerO = new HashMap<String, Integer>() {{
-        put("state", 0);
-        put("score", 0);
-    }};
+    public Player playerO = new Player();
 
     public Game() {
 
@@ -65,23 +59,23 @@ public class Game {
     }
 
     public void updatePlayerState(String turn, int stateToAdd) {
-        Map player = (turn == "x") ? playerX : playerO;
-        int state = (Integer)player.get("state");
-        player.put("state", state + stateToAdd);
+        Player player = (turn == "x") ? playerX : playerO;
+        int state = player.getState();
+        player.setState(state + stateToAdd);
     }
 
     public void checkForWin(GameActivity gameActivity) {
-        boolean playerXHasWon = isWin(playerX.get("state"));
-        boolean playerOHasWon = isWin(playerO.get("state"));
+        boolean playerXHasWon = isWin(playerX.getState());
+        boolean playerOHasWon = isWin(playerO.getState());
 
         if(playerXHasWon) {
-            int score = playerX.get("score");
-            playerX.put("score", score + 1);
+            int score = playerX.getScore();
+            playerX.setScore(score + 1);
             message = "X wins";
             gameActivity.disableBoard();
         } else if (playerOHasWon) {
-            int score = playerO.get("score");
-            playerO.put("score", score + 1);
+            int score = playerO.getScore();
+            playerO.setScore(score + 1);
             message = "O wins";
             gameActivity.disableBoard();
         } else if (numMovesLeft == 0) {

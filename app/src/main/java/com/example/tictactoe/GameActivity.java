@@ -15,7 +15,6 @@ public class GameActivity extends AppCompatActivity {
     private TextView message;
     private TextView xScore;
     private TextView oScore;
-    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +23,9 @@ public class GameActivity extends AppCompatActivity {
         message = findViewById(R.id.message);
         xScore = findViewById(R.id.x_score);
         oScore = findViewById(R.id.o_score);
-        mp = MediaPlayer.create(GameActivity.this, R.raw.square_selected);
     }
 
     public void squareClickListener(View view) {
-
-        playSound();
         updateSquare(view);
         int state = getSquareState(view);
         game.updatePlayerState(game.turn, state);
@@ -40,10 +36,6 @@ public class GameActivity extends AppCompatActivity {
         updateScore(game);
         displayMessage(game.message);
         game.toggleTurn();
-    }
-
-    private void playSound() {
-        mp.start();
     }
 
 
@@ -67,18 +59,18 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void updateScore(Game game) {
-        int playerXScore = game.playerX.get("score");
+        int playerXScore = game.playerX.getScore();
         xScore.setText("" + playerXScore);
 
-        int playerOScore = game.playerO.get("score");
+        int playerOScore = game.playerO.getScore();
         oScore.setText("" + playerOScore);
     }
 
     public void resetClickListener(View view) {
         //cleanup player states
         //cleanup scores?
-        game.playerX.put("state", 0);
-        game.playerO.put("state", 0);
+        game.playerX.setState(0);
+        game.playerO.setState(0);
         game.numMovesLeft = 9;
         cleanupMessage();
         cleanupBoard();

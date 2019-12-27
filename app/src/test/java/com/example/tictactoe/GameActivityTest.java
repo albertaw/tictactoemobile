@@ -30,9 +30,9 @@ public class GameActivityTest {
     @Test
     public void updates_playerX_state() {
         Game game = new Game();
-        game.playerX.put("state", 4);
+        game.playerX.setState(4);
         game.updatePlayerState("x", 8);
-        int state = game.playerX.get("state");
+        int state = game.playerX.getState();
         assertEquals(12, state);
     }
 }
